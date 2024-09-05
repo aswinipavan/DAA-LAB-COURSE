@@ -1,0 +1,23 @@
+mastr theroem :
+
+def substitution_method(T, n):
+    if n == 0:
+        return 1
+    else:
+        return 2 * substitution_method(T, n-1) + 1
+
+substution mentod :
+
+def substitution_method(T, n):
+    if n == 0:
+        return 1
+    else:
+        return 2 * substitution_method(T, n-1) + 1
+
+iteration method :
+
+def iteration_method(T, n):
+    result = 0
+    for i in range(n):
+        result += 2 ** i
+    return result
