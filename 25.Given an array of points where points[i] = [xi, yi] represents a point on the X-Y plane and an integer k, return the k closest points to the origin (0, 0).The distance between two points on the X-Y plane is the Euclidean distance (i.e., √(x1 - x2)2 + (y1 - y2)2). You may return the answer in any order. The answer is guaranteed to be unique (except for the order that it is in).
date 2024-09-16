@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+typedef struct {
+    int x, y;
+} Point;
+
+typedef struct {
+    Point point;
+    double distance; 
+} HeapNode;
+
+int compare(const void* a, const void* b) {
+    double distA = ((HeapNode*)a)->distance;
+    double distB = ((HeapNode*)b)->distance;
+    return (distA > distB) - (distA < distB);
+}
+
+double squaredDistance(Point p) {
+    return p.x * p.x + p.y * p.y;
+}
+
+Point* kClosestPoints(Point* points, int pointsSize, int k, int* returnSize) {
+    HeapNode* heap = (HeapNode*)malloc(pointsSize * sizeof(HeapNode));
+    int heapSize = 0;
+
+    for (int i = 0; i < pointsSize; i++) {
+        heap[heapSize].point = points[i];
+        heap[heapSize].distance = squaredDistance(points[i]);
+        heapSize++;
+    }
+
+    qsort(heap, heapSize, sizeof(HeapNode), compare);
+
+    Point* result = (Point*)malloc(k * sizeof(Point));
+
+    for (int i = 0; i < k; i++) {
+        result[i] = heap[i].point;
+    }
+
+    free(heap);
+
+    *returnSize = k;
+    return result;
+}
+
+int main() {
+    Point points[] = {{1, 3}, {-2, 2}, {5, 8}, {0, 1}};
+    int pointsSize = sizeof(points) / sizeof(points[0]);
+    int k = 2;
+    int returnSize;
+
+    Point* closestPoints = kClosestPoints(points, pointsSize, k, &returnSize);
+
+    printf("The %d closest points to the origin are:\n", k);
+    for (int i = 0; i < returnSize; i++) {
+        printf("(%d, %d)\n", closestPoints[i].x, closestPoints[i].y);
+    }
+
+    free(closestPoints);
+
+    return 0;
+}
