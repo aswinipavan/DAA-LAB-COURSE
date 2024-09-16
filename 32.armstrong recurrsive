@@ -1,0 +1,14 @@
+def is_armstrong(n, power=None):
+    if power is None:
+        power = len(str(n))  
+    if n == 0:
+        return 0
+    else:
+        digit = n % 10
+        return digit ** power + is_armstrong(n // 10, power)
+
+number = 153
+if is_armstrong(number) == number:
+    print("arm")
+else:
+    print("not")
