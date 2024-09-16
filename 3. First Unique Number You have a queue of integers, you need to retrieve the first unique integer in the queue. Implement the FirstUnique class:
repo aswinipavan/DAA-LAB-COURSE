@@ -1,0 +1,41 @@
+from collections import deque, defaultdict
+
+class FirstUnique:
+    def __init__(self, nums):
+        self.queue = deque()  # Queue to maintain the order of unique numbers
+        self.count = defaultdict(int)  # Dictionary to count occurrences of each number
+        
+        for num in nums:
+            self.add(num)
+    
+    def add(self, value: int) -> None:
+        """
+        Add a number to the data structure.
+        """
+        self.count[value] += 1
+        if self.count[value] == 1:
+            self.queue.append(value)
+        elif self.count[value] == 2:
+            while self.queue and self.count[self.queue[0]] > 1:
+                self.queue.popleft()
+    
+    def showFirstUnique(self) -> int:
+        """
+        Retrieve the first unique number from the queue.
+        """
+        while self.queue and self.count[self.queue[0]] > 1:
+            self.queue.popleft()
+        
+        return self.queue[0] if self.queue else -1
+
+if __name__ == "__main__":
+    fu = FirstUnique([2, 3, 5])
+    
+    # Retrieve the first unique number
+    print(fu.showFirstUnique())  # Output: 2
+    
+    fu.add(3)
+    print(fu.showFirstUnique())  # Output: 5
+    
+    fu.add(5)
+    print(fu.showFirstUnique())  # Output: -1
