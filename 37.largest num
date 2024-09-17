@@ -1,0 +1,8 @@
+
+numbers = [3, 5, 7, 2, 8, 10, 4]
+max_value = numbers[0]
+for num in numbers:
+    if num > max_value:
+        max_value = num
+
+print(f"The largest element is {max_value}")
