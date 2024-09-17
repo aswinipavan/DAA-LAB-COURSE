@@ -1,0 +1,17 @@
+import random
+
+arr = [random.randint(1, 100) for _ in range(10)]
+k = len(arr) // 2
+while True:
+    pivot = random.choice(arr)
+    low = [x for x in arr if x < pivot]
+    high = [x for x in arr if x > pivot]
+    if len(low) == k: 
+        median = pivot
+        break
+    elif len(low) > k: 
+        arr = low
+    else: 
+        arr = high
+        k -= len(low) + 1
+print(median)
