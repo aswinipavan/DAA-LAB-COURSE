@@ -1,0 +1,12 @@
+def reverse_number(n, reversed_num=0):
+    if n == 0:
+        return reversed_num
+    r = n % 10
+    
+    reversed_num = reversed_num * 10 + r
+    
+    return reverse_number(n // 10, reversed_num)
+
+number = 12345
+reversed_number = reverse_number(number)
+print("Reversed number:", reversed_number)
